@@ -5,18 +5,57 @@
 {% block content %}
   <section class="card">
     <h2>Edit Note</h2>
+
     {% if error %}
       <p class="error">{{ error }}</p>
     {% endif %}
-    <form method="post" action="{{ url_for('update_note', note_id=note['id']) }}">
+
+    <form method="post" action="{{ url_for('update_note', note_id=note['id']) }}" class="create-form">
+      <input type="hidden" name="next" value="{{ next_url }}">
+
       <label for="title">Title</label>
       <input id="title" name="title" type="text" value="{{ note['title'] }}" required>
 
       <label for="content">Content</label>
-      <textarea id="content" name="content" rows="4">{{ note['content'] }}</textarea>
+      <textarea id="content" name="content" rows="5">{{ note['content'] }}</textarea>
 
-      <button type="submit">Save</button>
-      <a class="secondary-link" href="{{ url_for('index') }}">Cancel</a>
+      <div class="grid-form">
+        <div>
+          <label for="category">Category</label>
+          <input id="category" name="category" type="text" value="{{ note['category'] }}">
+        </div>
+
+        <div>
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            {% for status in statuses %}
+              <option value="{{ status }}" {% if note['status'] == status %}selected{% endif %}>{{ format_status(status) }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority">
+            {% for priority in priorities %}
+              <option value="{{ priority }}" {% if note['priority'] == priority %}selected{% endif %}>{{ format_priority(priority) }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="due_date">Due Date</label>
+          <input id="due_date" name="due_date" type="date" value="{{ note['due_date'] or '' }}">
+        </div>
+      </div>
+
+      <label class="checkbox-row" for="is_pinned">
+        <input id="is_pinned" name="is_pinned" type="checkbox" {% if note['is_pinned'] %}checked{% endif %}>
+        Keep this note pinned
+      </label>
+
+      <button type="submit">Save Changes</button>
+      <a class="secondary-link" href="{{ next_url }}">Cancel</a>
     </form>
   </section>
 {% endblock %}

@@ -3,12 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Notes CRUD{% endblock %}</title>
+    <title>{% block title %}Notes Command Center{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <main class="container">
-      <h1><a class="home-link" href="{{ url_for('index') }}">Notes CRUD</a></h1>
+      <header class="page-header">
+        <h1><a class="home-link" href="{{ url_for('index') }}">Notes Command Center</a></h1>
+        <p class="subtitle">
+          Advanced Flask + SQLite notes with search, filters, pinning, archive, trash, and JSON APIs.
+        </p>
+      </header>
       {% block content %}{% endblock %}
     </main>
   </body>
