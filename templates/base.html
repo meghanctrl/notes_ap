@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Notes CRUD{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="container">
+      <h1><a class="home-link" href="{{ url_for('index') }}">Notes CRUD</a></h1>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
